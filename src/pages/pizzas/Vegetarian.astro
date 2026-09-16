@@ -25,15 +25,25 @@ import '../../styles/global.css';
       </a>
     </div>
 
-    <nav class="flex flex-wrap items-center gap-2 mb-8 p-3 bg-slate-50/50 rounded-xl border border-slate-200/80">
-      <a href="/pizzas/Classic" class="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium text-sm transition">Classic</a>
-      <a href="/pizzas/Specialty" class="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium text-sm transition">Specialty</a>
-      <span class="px-4 py-2 rounded-lg bg-slate-900 text-white font-semibold text-sm shadow-sm">Vegetarian</span>
-    </nav>
+    <div class="mb-8 p-4 bg-slate-50/50 rounded-xl border border-slate-200/80">
+      <label for="category-select" class="block text-sm font-semibold text-slate-700 mb-2">Choisir une catégorie :</label>
+      <select id="category-select" class="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-800 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+        <option value="Classic">Classic</option>
+        <option value="Specialty">Specialty</option>
+        <option value="Vegetarian" selected>Vegetarian</option>
+      </select>
+    </div>
 
     <main>
       <GraphicCategory categoryName="Vegetarian" />
     </main>
 
   </div>
+
+  <script>
+    document.querySelector("#category-select")?.addEventListener("change", (evt) => {
+      const value = (evt.target as HTMLSelectElement).value;
+      location.pathname = "/pizzas/" + value + "/";
+    });
+  </script>
 </Layout>

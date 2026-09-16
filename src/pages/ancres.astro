@@ -18,169 +18,48 @@ const penguinsGentoo = cleanData("Gentoo");
 const penguinsChinstrap = cleanData("Chinstrap");
 
 const getPlotOptions = (data, title) => ({
-  grid: true,
-  inset: 10,
-  x: { 
-    label: "Longueur du bec (mm)",
-    domain: [30, 62] 
-  },
-  y: { 
-    label: "Profondeur du bec (mm)",
-    domain: [12, 22] 
-  },
-  marks: [
-    Plot.frame({ stroke: "#e2e8f0" }),
-    Plot.dot(data, {
-      x: "culmen_length_mm",
-      y: "culmen_depth_mm",
-      fill: "species",
-      r: 4
-    }),
-  ],
+  grid: true, inset: 10,
+  x: { label: "Longueur du bec (mm)", domain: [30, 62] },
+  y: { label: "Profondeur du bec (mm)", domain: [12, 22] },
+  marks: [Plot.frame({ stroke: "#e2e8f0" }), Plot.dot(data, { x: "culmen_length_mm", y: "culmen_depth_mm", fill: "species", r: 4 })],
 });
 ---
 
-<Layout title="TP2 - Page Unique & Slider">
-  
+<Layout title="TP3 - Ancres Pingouins">
   <div class="max-w-4xl mx-auto p-8 bg-white rounded-2xl border border-slate-200/80 shadow-sm mt-12 mb-12">
     
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 border-b border-slate-100 pb-6">
+    <div class="flex items-center justify-between mb-8 border-b border-slate-100 pb-6">
       <div>
-        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200/80 mb-2">
-          <span>TP2</span>
-          <span>•</span>
-          <span>Page Unique & Slider</span>
-        </div>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
-          Toutes les espèces (Slider dynamique)
-        </h1>
+        <h1 class="text-2xl font-extrabold text-slate-900">Slider Pingouins (Ancres)</h1>
       </div>
-
-      <a href="/" class="inline-flex items-center justify-center gap-1.5 text-xs font-semibold px-4 py-2.5 rounded-xl bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200/60 transition shadow-sm self-start sm:self-auto">
-        <span aria-hidden="true">←</span>
-        <span>Retour Accueil</span>
-      </a>
+      <a href="/" class="text-xs font-semibold px-4 py-2.5 rounded-xl bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200/60 transition">← Retour</a>
     </div>
 
-    <nav class="flex flex-wrap items-center gap-2 mb-8 p-3 bg-slate-50/50 rounded-xl border border-slate-200/80 sticky top-4 z-50">
-      <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mr-2">Aller à :</span>
-      <a href="#adelie" class="menu-item px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium text-sm transition [&.active]:bg-slate-900 [&.active]:text-white [&.active]:shadow-sm">Adelie</a>
-      <a href="#gentoo" class="menu-item px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium text-sm transition [&.active]:bg-slate-900 [&.active]:text-white [&.active]:shadow-sm">Gentoo</a>
-      <a href="#chinstrap" class="menu-item px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium text-sm transition [&.active]:bg-slate-900 [&.active]:text-white [&.active]:shadow-sm">Chinstrap</a>
-    </nav>
-
-    <div class="slider-container">
-      
-      <div id="adelie" class="item">
-        <section class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-8 w-full">
-          <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
-            <div>
-              <h2 class="text-sm font-semibold text-slate-900 uppercase tracking-wider">Espèce : Adelie</h2>
-              <p class="text-xs text-slate-500">Dimensions du bec filtrées par taxon</p>
-            </div>
-            <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md border border-slate-200/80">{penguinsAdelie.length} spécimens</span>
-          </div>
-          <div class="overflow-x-auto">
-            <PlotFigure options={getPlotOptions(penguinsAdelie, "Espèce Adelie")} />
-          </div>
-          <footer class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-            <span>Données : Palmer Station LTER</span>
-            <span>Section Adelie</span>
-          </footer>
-        </section>
-      </div>
-      
-      <div id="gentoo" class="item">
-        <section class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-8 w-full">
-          <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
-            <div>
-              <h2 class="text-sm font-semibold text-slate-900 uppercase tracking-wider">Espèce : Gentoo</h2>
-              <p class="text-xs text-slate-500">Dimensions du bec filtrées par taxon</p>
-            </div>
-            <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md border border-slate-200/80">{penguinsGentoo.length} spécimens</span>
-          </div>
-          <div class="overflow-x-auto">
-            <PlotFigure options={getPlotOptions(penguinsGentoo, "Espèce Gentoo")} />
-          </div>
-          <footer class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-            <span>Données : Palmer Station LTER</span>
-            <span>Section Gentoo</span>
-          </footer>
-        </section>
-      </div>
-      
-      <div id="chinstrap" class="item">
-        <section class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-8 w-full">
-          <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
-            <div>
-              <h2 class="text-sm font-semibold text-slate-900 uppercase tracking-wider">Espèce : Chinstrap</h2>
-              <p class="text-xs text-slate-500">Dimensions du bec filtrées par taxon</p>
-            </div>
-            <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md border border-slate-200/80">{penguinsChinstrap.length} spécimens</span>
-          </div>
-          <div class="overflow-x-auto">
-            <PlotFigure options={getPlotOptions(penguinsChinstrap, "Espèce Chinstrap")} />
-          </div>
-          <footer class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-            <span>Données : Palmer Station LTER</span>
-            <span>Section Chinstrap</span>
-          </footer>
-        </section>
-      </div>
-
+    <div class="mb-8 flex items-center gap-4">
+      <label for="anchors-menu" class="text-sm font-semibold text-slate-700">Espèce :</label>
+      <select id="anchors-menu" class="px-4 py-2 rounded-lg bg-white border border-slate-200 shadow-sm focus:ring-2 focus:ring-indigo-500">
+        <option value="#adelie">Adelie</option>
+        <option value="#gentoo">Gentoo</option>
+        <option value="#chinstrap">Chinstrap</option>
+      </select>
     </div>
 
+    <div class="slider-container flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-8 no-scrollbar">
+      <div id="adelie" class="item min-w-full snap-center"><PlotFigure options={getPlotOptions(penguinsAdelie, "Adelie")} /></div>
+      <div id="gentoo" class="item min-w-full snap-center"><PlotFigure options={getPlotOptions(penguinsGentoo, "Gentoo")} /></div>
+      <div id="chinstrap" class="item min-w-full snap-center"><PlotFigure options={getPlotOptions(penguinsChinstrap, "Chinstrap")} /></div>
+    </div>
   </div>
 
   <script>
-    const menuItems = document.querySelectorAll(".menu-item");
-    const items = document.querySelectorAll(".item");
-
-    console.log("menuItems", menuItems);
-    console.log("items", items);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const id = entry.target.getAttribute("id");
-          const menuItem = document.querySelector(`.menu-item[href="#${id}"]`);
-          
-          if (entry.isIntersecting) {
-            menuItem?.classList.add("active");
-          } else {
-            menuItem?.classList.remove("active");
-          }
-        });
-      },
-      { threshold: 0.5 },
-    );
-
-    items.forEach((item) => {
-      observer.observe(item);
+    document.querySelector("#anchors-menu")?.addEventListener("change", (evt) => {
+      const value = (evt.target as HTMLSelectElement).value;
+      location.hash = value;
     });
   </script>
 </Layout>
 
 <style>
-  .slider-container {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory; 
-    scroll-behavior: smooth;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .item {
-    min-width: 100%;
-    scroll-snap-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  
-  .slider-container::-webkit-scrollbar {
-    display: none;
-  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>

@@ -1,0 +1,52 @@
+---
+import { Tabs, TabsList, TabsTab, TabsPanel } from 'accessible-astro-components';
+import PlotFigure from "../components/PlotFigure.astro";
+import Layout from "../layouts/Layout.astro";
+import * as Plot from "@observablehq/plot";
+import penguins from "../assets/penguins.json";
+import '../styles/global.css';
+
+const cleanData = (speciesName) => penguins
+  .filter((p: any) => p.species === speciesName && p.culmen_length_mm !== "NaN" && p.culmen_depth_mm !== "NaN")
+  .map((p: any) => ({ species: p.species, culmen_length_mm: Number(p.culmen_length_mm), culmen_depth_mm: Number(p.culmen_depth_mm) }));
+
+const penguinsAdelie = cleanData("Adelie");
+const penguinsGentoo = cleanData("Gentoo");
+const penguinsChinstrap = cleanData("Chinstrap");
+
+const getPlotOptions = (data, title) => ({
+  grid: true, inset: 10,
+  x: { label: "Longueur du bec (mm)", domain: [30, 62] },
+  y: { label: "Profondeur du bec (mm)", domain: [12, 22] },
+  marks: [Plot.frame({ stroke: "#e2e8f0" }), Plot.dot(data, { x: "culmen_length_mm", y: "culmen_depth_mm", fill: "species", r: 4 })],
+});
+---
+
+<Layout title="TP3 - Tabs Pingouins">
+  <div class="max-w-4xl mx-auto p-8 bg-white rounded-2xl border border-slate-200/80 shadow-sm mt-12 mb-12">
+    
+    <div class="flex items-center justify-between mb-8 border-b border-slate-100 pb-6">
+      <h1 class="text-2xl font-extrabold text-slate-900">Onglets Accessibles Pingouins</h1>
+      <a href="/" class="text-xs font-semibold px-4 py-2.5 rounded-xl bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200/60 transition">← Retour</a>
+    </div>
+
+    <Tabs>
+      <TabsList class="flex gap-2 border-b border-slate-200 pb-2 mb-6">
+        <TabsTab id="tab-1" controls="panel-1" selected class="px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 aria-selected:!bg-indigo-900 aria-selected:!text-white transition">Adelie</TabsTab>
+        <TabsTab id="tab-2" controls="panel-2" class="px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 aria-selected:!bg-indigo-900 aria-selected:!text-white transition">Gentoo</TabsTab>
+        <TabsTab id="tab-3" controls="panel-3" class="px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 aria-selected:!bg-indigo-900 aria-selected:!text-white transition">Chinstrap</TabsTab>
+      </TabsList>
+
+      <TabsPanel id="panel-1" labelledby="tab-1" selected>
+        <PlotFigure options={getPlotOptions(penguinsAdelie, "Adelie")} />
+      </TabsPanel>
+      <TabsPanel id="panel-2" labelledby="tab-2">
+        <PlotFigure options={getPlotOptions(penguinsGentoo, "Gentoo")} />
+      </TabsPanel>
+      <TabsPanel id="panel-3" labelledby="tab-3">
+        <PlotFigure options={getPlotOptions(penguinsChinstrap, "Chinstrap")} />
+      </TabsPanel>
+    </Tabs>
+
+  </div>
+</Layout>

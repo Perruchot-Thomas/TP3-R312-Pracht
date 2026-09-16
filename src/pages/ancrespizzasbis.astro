@@ -1,0 +1,53 @@
+---
+import { Tabs, TabsList, TabsTab, TabsPanel } from 'accessible-astro-components';
+import PlotFigure from "../components/PlotFigure.astro";
+import Layout from "../layouts/Layout.astro";
+import * as Plot from "@observablehq/plot";
+import pizzaData from "../assets/pizza.json";
+import '../styles/global.css';
+
+const cleanData = (catName) => pizzaData
+  .filter((p: any) => p.category === catName)
+  .map((p: any) => ({ name: p.name, price: Number(p.price), orders: Number(p.orders), category: p.category }));
+
+const pizzaClassic = cleanData("Classic");
+const pizzaSpecialty = cleanData("Specialty");
+const pizzaVegetarian = cleanData("Vegetarian");
+
+const getPlotOptions = (data) => ({
+  grid: true, inset: 10,
+  x: { label: "Prix ($)", domain: [10, 28] },
+  y: { label: "Nombre de commandes", domain: [0, 450] },
+  marks: [Plot.frame({ stroke: "#e2e8f0" }), Plot.dot(data, { x: "price", y: "orders", fill: "category", r: 4, tip: true })],
+});
+---
+
+<Layout title="TP3 - Tabs Pizzas">
+  <div class="max-w-4xl mx-auto p-8 bg-white rounded-2xl border border-slate-200/80 shadow-sm mt-12 mb-12">
+    
+    <div class="flex items-center justify-between mb-8 border-b border-slate-100 pb-6">
+      <h1 class="text-2xl font-extrabold text-slate-900">Onglets Accessibles Pizzas</h1>
+      <a href="/" class="text-xs font-semibold px-4 py-2.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200/60 transition">← Retour</a>
+    </div>
+
+    <!-- Composant Tabs Accessible pour les Pizzas -->
+    <Tabs>
+      <TabsList class="flex gap-2 border-b border-slate-200 pb-2 mb-6">
+        <TabsTab id="tab-classic" controls="panel-classic" selected class="px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 aria-selected:!bg-emerald-700 aria-selected:!text-white transition">Classic</TabsTab>
+        <TabsTab id="tab-specialty" controls="panel-specialty" class="px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 aria-selected:!bg-emerald-700 aria-selected:!text-white transition">Specialty</TabsTab>
+        <TabsTab id="tab-vegetarian" controls="panel-vegetarian" class="px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 aria-selected:!bg-emerald-700 aria-selected:!text-white transition">Vegetarian</TabsTab>
+      </TabsList>
+
+      <TabsPanel id="panel-classic" labelledby="tab-classic" selected>
+        <PlotFigure options={getPlotOptions(pizzaClassic)} />
+      </TabsPanel>
+      <TabsPanel id="panel-specialty" labelledby="tab-specialty">
+        <PlotFigure options={getPlotOptions(pizzaSpecialty)} />
+      </TabsPanel>
+      <TabsPanel id="panel-vegetarian" labelledby="tab-vegetarian">
+        <PlotFigure options={getPlotOptions(pizzaVegetarian)} />
+      </TabsPanel>
+    </Tabs>
+
+  </div>
+</Layout>

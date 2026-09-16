@@ -1,0 +1,58 @@
+---
+import PlotFigure from './PlotFigure.astro';
+import * as Plot from "@observablehq/plot";
+import penguinsData from '../assets/penguins.json';
+
+const { speciesName } = Astro.props;
+
+const filteredPenguins = penguinsData
+  .filter((p: any) => p.species === speciesName && p.culmen_length_mm !== "NaN" && p.culmen_depth_mm !== "NaN")
+  .map((p: any) => ({
+    species: p.species,
+    culmen_length_mm: Number(p.culmen_length_mm),
+    culmen_depth_mm: Number(p.culmen_depth_mm)
+  }));
+
+const options = {
+  grid: true,
+  inset: 10,
+  x: { 
+    label: "Longueur du bec (mm)",
+    domain: [30, 62] 
+  },
+  y: { 
+    label: "Profondeur du bec (mm)",
+    domain: [12, 22]
+  },
+  marks: [
+    Plot.frame({ stroke: "#e2e8f0" }),
+    Plot.dot(filteredPenguins, { 
+      x: "culmen_length_mm", 
+      y: "culmen_depth_mm", 
+      fill: "species",
+      r: 4
+    })
+  ]
+};
+---
+
+<section class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-8">
+  <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
+    <div>
+      <h2 class="text-sm font-semibold text-slate-900 uppercase tracking-wider">Espèce : {speciesName}</h2>
+      <p class="text-xs text-slate-500">Dimensions du bec filtrées par taxon</p>
+    </div>
+    <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md border border-slate-200/80">
+      {filteredPenguins.length} spécimens
+    </span>
+  </div>
+
+  <div class="overflow-x-auto">
+    <PlotFigure options={options} />
+  </div>
+
+  <footer class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+    <span>Données : Palmer Station LTER</span>
+    <span>Composant <code>GraphicSpecies.astro</code></span>
+  </footer>
+</section>

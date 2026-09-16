@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import GraphicCategory from '../../components/GraphicCategory.astro';
+import '../../styles/global.css';
+---
+
+<Layout title="TP2 - Pizzas Vegetarian">
+  <div class="max-w-4xl mx-auto p-8 bg-white rounded-2xl border border-slate-200/80 shadow-sm mt-12">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 border-b border-slate-100 pb-6">
+      <div>
+        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700 border border-emerald-200/80 mb-2">
+          <span>TP2</span>
+          <span>•</span>
+          <span>Multi-pages (Pizzas)</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+          Focus sur la catégorie : Vegetarian
+        </h1>
+      </div>
+
+      <a href="/" class="inline-flex items-center justify-center gap-1.5 text-xs font-semibold px-4 py-2.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200/60 transition shadow-sm self-start sm:self-auto">
+        <span aria-hidden="true">←</span>
+        <span>Retour Accueil</span>
+      </a>
+    </div>
+
+    <nav class="flex flex-wrap items-center gap-2 mb-8 p-3 bg-slate-50/50 rounded-xl border border-slate-200/80">
+      <a href="/pizzas/Classic" class="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium text-sm transition">Classic</a>
+      <a href="/pizzas/Specialty" class="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium text-sm transition">Specialty</a>
+      <span class="px-4 py-2 rounded-lg bg-slate-900 text-white font-semibold text-sm shadow-sm">Vegetarian</span>
+    </nav>
+
+    <main>
+      <GraphicCategory categoryName="Vegetarian" />
+    </main>
+
+  </div>
+</Layout>

@@ -1,21 +1,71 @@
 ---
-import PlotFigure from "../components/PlotFigure.astro";
-import Layout from "../layouts/Layout.astro";
-import * as Plot from "@observablehq/plot";
-import penguins from "../assets/penguins.json";
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
 ---
 
-<Layout>
-  <h1 class="text-2xl">Test Astro et Plot (Observablehq)</h1>
-  <PlotFigure
-    options={{
-      marks: [
-        Plot.dot(penguins, {
-          x: "culmen_length_mm",
-          y: "culmen_depth_mm",
-          stroke: "species",
-        }),
-      ],
-    }}
-  />
+<Layout title="Accueil - TP2 Projets Multi-données">
+  
+  <div class="max-w-4xl mx-auto p-8 bg-white rounded-2xl border border-slate-200/80 shadow-sm mt-12 mb-12">
+    
+    <div class="text-center mb-10 border-b border-slate-100 pb-8">
+        <h1 class="text-3xl font-extrabold text-slate-900 mb-3">
+          Projet Astro - Les Visualisations 🍕🐧
+        </h1>
+        <p class="text-slate-600 text-lg">
+          Comparaison des architectures Web (TP2) sur deux jeux de données distincts.
+        </p>
+    </div>
+    
+    <div class="mb-10">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Jeu de données n°1 : Pingouins</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="p-6 bg-slate-50/50 rounded-xl border border-slate-200/80">
+          <h3 class="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-2">Partie 1 : Multi-pages</h3>
+          <p class="text-sm text-slate-600 mb-6">Création d'une page distincte par espèce.</p>
+          <a href="/species/Adelie" class="inline-flex w-full items-center justify-between px-4 py-3 rounded-xl bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200/60 font-medium transition shadow-sm">
+            <span>Tester les sous-pages</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="p-6 bg-slate-50/50 rounded-xl border border-slate-200/80">
+          <h3 class="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-2">Partie 2 : Page Unique</h3>
+          <p class="text-sm text-slate-600 mb-6">Affichage groupé avec slider CSS et ancres.</p>
+          <a href="/ancres" class="inline-flex w-full items-center justify-between px-4 py-3 rounded-xl bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200/60 font-medium transition shadow-sm">
+            <span>Tester le Slider (Ancres)</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Jeu de données n°2 : Pizzas (Ventes & Revenus)</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="p-6 bg-slate-50/50 rounded-xl border border-slate-200/80">
+          <h3 class="text-sm font-semibold text-emerald-600 uppercase tracking-wider mb-2">Partie 1 : Multi-pages (Pizzas)</h3>
+          <p class="text-sm text-slate-600 mb-6">Filtrage par catégorie (Classic, etc.) en multi-pages.</p>
+          <a href="/pizzas/Classic" class="inline-flex w-full items-center justify-between px-4 py-3 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200/60 font-medium transition shadow-sm">
+            <span>Tester les sous-pages (Pizzas)</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="p-6 bg-slate-50/50 rounded-xl border border-slate-200/80">
+          <h3 class="text-sm font-semibold text-emerald-600 uppercase tracking-wider mb-2">Partie 2 : Page Unique (Pizzas)</h3>
+          <p class="text-sm text-slate-600 mb-6">Slider horizontal avec IntersectionObserver.</p>
+          <a href="/ancrespizzas" class="inline-flex w-full items-center justify-between px-4 py-3 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200/60 font-medium transition shadow-sm">
+            <span>Tester le Slider (Pizzas)</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
 </Layout>

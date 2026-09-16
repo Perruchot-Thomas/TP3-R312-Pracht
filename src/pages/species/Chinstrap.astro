@@ -26,11 +26,14 @@ import '../../styles/global.css';
       </a>
     </div>
 
-    <nav class="flex flex-wrap items-center gap-2 mb-8 p-3 bg-slate-50/50 rounded-xl border border-slate-200/80">
-      <a href="/species/Adelie" class="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium text-sm transition">Adelie</a>
-      <span class="px-4 py-2 rounded-lg bg-slate-900 text-white font-semibold text-sm shadow-sm">Chinstrap</span>
-      <a href="/species/Gentoo" class="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium text-sm transition">Gentoo</a>
-    </nav>
+    <div class="mb-8 p-4 bg-slate-50/50 rounded-xl border border-slate-200/80">
+      <label for="species-select" class="block text-sm font-semibold text-slate-700 mb-2">Choisir une espèce :</label>
+      <select id="species-select" class="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-800 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <option value="Adelie">Adelie</option>
+        <option value="Chinstrap" selected>Chinstrap</option>
+        <option value="Gentoo">Gentoo</option>
+      </select>
+    </div>
 
     <main>
       <GraphicSpecies speciesName="Chinstrap" />
@@ -38,4 +41,10 @@ import '../../styles/global.css';
 
   </div>
 
+  <script>
+    document.querySelector("#species-select")?.addEventListener("change", (evt) => {
+      const value = (evt.target as HTMLSelectElement).value;
+      location.pathname = "/species/" + value + "/";
+    });
+  </script>
 </Layout>
